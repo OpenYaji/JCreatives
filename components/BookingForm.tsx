@@ -104,7 +104,6 @@ export default function BookingForm() {
                 type="date"
                 required
                 className="field mt-2"
-                style={{ colorScheme: "dark" }}
               />
             </label>
 

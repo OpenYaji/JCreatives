@@ -13,19 +13,21 @@ export default function Home() {
     <>
       <RevealInit />
       <Nav />
-      <ScrollExpandMedia
-        mediaType="image"
-        mediaSrc="/images/brand.png"
-        bgImageSrc="/images/hero.jpg"
-        title="J Creatives"
-        date="Est. 2020"
-        scrollToExpand="Photography · Philippines"
-      >
-        <Portfolio />
-        <About />
-        <BookingForm />
-        <Footer />
-      </ScrollExpandMedia>
+      <div id="home">
+        <ScrollExpandMedia
+          mediaType="image"
+          mediaSrc="/images/brand.png"
+          bgImageSrc="/images/hero.jpg"
+          title="J Creatives"
+          date="Est. 2020"
+          scrollToExpand="Photography · Philippines"
+        >
+          <Portfolio />
+          <About />
+          <BookingForm />
+          <Footer />
+        </ScrollExpandMedia>
+      </div>
     </>
   );
 }

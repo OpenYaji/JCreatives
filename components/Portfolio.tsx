@@ -66,7 +66,12 @@ function getPortfolioItems(): PortfolioItem[] {
       };
     });
 
-  return items;
+  const PINNED_FIRST = 'jimwel-jessa';
+  return items.sort((a, b) => {
+    if (a.slug === PINNED_FIRST) return -1;
+    if (b.slug === PINNED_FIRST) return 1;
+    return 0;
+  });
 }
 
 export default function Portfolio() {
@@ -78,12 +83,12 @@ export default function Portfolio() {
       <section id="portfolio" className="bg-obsidian py-24 sm:py-32">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto">
-            <div className="reveal text-[11px] tracking-mega uppercase text-gold/60">The Work</div>
-            <h2 className="reveal reveal-delay-1 mt-4 display text-5xl sm:text-7xl text-warm-white">
+            <div className="text-[11px] tracking-mega uppercase text-gold/60">The Work</div>
+            <h2 className="mt-4 display text-5xl sm:text-7xl text-warm-white">
               Portfolio
             </h2>
-            <div className="reveal reveal-delay-2 mt-6 gold-rule w-20 mx-auto" />
-            <p className="reveal reveal-delay-3 mt-6 serif text-lg leading-relaxed text-warm-muted">
+            <div className="mt-6 gold-rule w-20 mx-auto" />
+            <p className="mt-6 serif text-lg leading-relaxed text-warm-muted">
               Every frame tells a story. Scroll through our work.
             </p>
           </div>

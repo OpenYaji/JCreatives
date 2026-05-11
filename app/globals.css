@@ -1,34 +1,51 @@
 /* app/globals.css */
 @import "tailwindcss";
 
-@theme inline {
-  /* Obsidian dark palette */
+/* ── Design tokens (dark theme — default when html.dark) ── */
+@theme {
   --color-obsidian:    #0c0c0c;
   --color-surface:     #141414;
   --color-surface-2:   #1c1c1c;
   --color-border:      rgba(255,255,255,0.08);
   --color-border-gold: rgba(201,169,110,0.25);
 
-  /* Text */
   --color-warm-white:  #f0ebe0;
   --color-warm-muted:  #8a8278;
   --color-warm-faint:  #4a4540;
 
-  /* Gold accent */
   --color-gold:        #c9a96e;
   --color-gold-dim:    #9a7a50;
 
-  /* Fonts */
   --font-display: var(--font-cormorant), serif;
   --font-sans:    var(--font-dm-sans), system-ui, sans-serif;
+}
+
+/* ── Light mode token overrides ────────────────────────────
+   :root:not(.dark) has higher specificity than :root, so
+   these override the @theme defaults when .dark is absent.
+────────────────────────────────────────────────────────── */
+:root:not(.dark) {
+  --color-obsidian:    #f5f0e8;
+  --color-surface:     #ece7de;
+  --color-surface-2:   #e4ddd4;
+  --color-border:      rgba(0,0,0,0.08);
+  --color-border-gold: rgba(140,100,50,0.18);
+
+  --color-warm-white:  #1a1614;
+  --color-warm-muted:  #5c5450;
+  --color-warm-faint:  #807870;
+
+  --color-gold:        #9a7030;
+  --color-gold-dim:    #7a5520;
 }
 
 html  { scroll-behavior: smooth; }
 
 body {
-  background: #0c0c0c;
-  color: #f0ebe0;
+  background: var(--color-obsidian);
+  color: var(--color-warm-white);
   font-family: var(--font-dm-sans), system-ui, sans-serif;
+  transition: background 0.4s ease, color 0.4s ease;
 }
 
 /* ── Font helpers ── */
@@ -72,7 +89,7 @@ body {
 }
 .hover-zoom:hover img { transform: scale(1.05); filter: brightness(1.05); }
 
-/* ── Gold pill nav ── */
+/* ── Gold pill nav — intentionally stays dark in both modes ── */
 .nav-pill {
   backdrop-filter: blur(12px);
   background: rgba(20,20,20,0.85);
@@ -86,13 +103,25 @@ body {
   border-bottom: 1px solid rgba(255,255,255,0.15);
   padding: 10px 0;
   width: 100%;
-  color: #f0ebe0;
+  color: var(--color-warm-white);
   font-family: var(--font-dm-sans), sans-serif;
   font-size: 0.95rem;
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
-.field:focus       { outline: none; border-color: #c9a96e; }
+.field:focus        { outline: none; border-color: var(--color-gold); }
 .field::placeholder { color: rgba(255,255,255,0.25); }
-.field option      { background: #141414; color: #f0ebe0; }
+.field option       { background: var(--color-surface); color: var(--color-warm-white); }
+
+:root:not(.dark) .field {
+  border-bottom-color: rgba(0,0,0,0.15);
+}
+:root:not(.dark) .field::placeholder {
+  color: rgba(0,0,0,0.30);
+}
+
+/* Date picker native chrome matches body theme */
+.field[type="date"]         { color-scheme: dark; }
+:root:not(.dark) .field[type="date"] { color-scheme: light; }
 
 /* ── Vignette ── */
 .vignette::after {
@@ -111,4 +140,7 @@ body {
 .gold-rule {
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(201,169,110,0.45), transparent);
+}
+:root:not(.dark) .gold-rule {
+  background: linear-gradient(90deg, transparent, rgba(154,112,48,0.50), transparent);
 }

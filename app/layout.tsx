@@ -27,7 +27,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${dmSans.variable} antialiased`}
+      className={`${cormorant.variable} ${dmSans.variable} antialiased dark`}
+      suppressHydrationWarning
     >
       <body>{children}</body>
     </html>

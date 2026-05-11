@@ -13,7 +13,11 @@ export interface PortfolioItem {
   gallery: string[];
 }
 
-const BG_CYCLE = ['#0c0c0c', '#141414', '#1c1c1c'];
+const BG_CYCLE = [
+  'var(--color-obsidian)',
+  'var(--color-surface)',
+  'var(--color-surface-2)',
+];
 
 export default function PortfolioClient({ items }: { items: PortfolioItem[] }) {
   const [lightbox, setLightbox] = useState<{
@@ -36,7 +40,7 @@ export default function PortfolioClient({ items }: { items: PortfolioItem[] }) {
             aria-label={item.label}
             style={{
               backgroundColor: BG_CYCLE[i % BG_CYCLE.length],
-              color: '#f0ebe0',
+              color: 'var(--color-warm-white)',
             }}
           >
             {/* Top label */}
@@ -49,7 +53,7 @@ export default function PortfolioClient({ items }: { items: PortfolioItem[] }) {
 
             {/* Display title */}
             <h2
-              className="text-[clamp(3rem,9vw,9rem)] leading-[0.88] tracking-tight"
+              className="text-[clamp(1.75rem,3.5vw,3.5rem)] leading-[1] tracking-tight"
               style={{ fontFamily: 'var(--font-cormorant), serif' }}
             >
               {item.label.includes('&') ? (

@@ -48,6 +48,22 @@ export default function ScrollExpandMedia({
     setMediaFullyExpanded(false);
   }, [mediaType]);
 
+  // Listen for nav link navigation — force-expand then scroll to target
+  useEffect(() => {
+    const handleNavigate = (e: Event) => {
+      const target = (e as CustomEvent<{ target: string }>).detail.target;
+      setScrollProgress(1);
+      setMediaFullyExpanded(true);
+      setShowContent(true);
+      setTimeout(() => {
+        const el = document.getElementById(target);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 80);
+    };
+    window.addEventListener('jcreatives:navigate', handleNavigate);
+    return () => window.removeEventListener('jcreatives:navigate', handleNavigate);
+  }, []);
+
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       if (mediaFullyExpanded && e.deltaY < 0 && window.scrollY <= 5) {
