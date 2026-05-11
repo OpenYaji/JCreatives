@@ -15,8 +15,8 @@ export default function Home() {
       <Nav />
       <ScrollExpandMedia
         mediaType="image"
-        mediaSrc="/images/portfolio/jimwel-jessa.jpg"
-        bgImageSrc="/images/portfolio/keizsha-orly.jpg"
+        mediaSrc="/images/brand.png"
+        bgImageSrc="/images/hero.jpg"
         title="J Creatives"
         date="Est. 2020"
         scrollToExpand="Photography · Philippines"
