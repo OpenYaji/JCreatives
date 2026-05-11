@@ -1,9 +1,8 @@
-// app/page.tsx
 export const dynamic = "force-dynamic";
 
 import RevealInit from "@/components/RevealInit";
 import Nav from "@/components/Nav";
-import Hero from "@/components/Hero";
+import ScrollExpandMedia from "@/components/ui/scroll-expansion-hero";
 import Portfolio from "@/components/Portfolio";
 import About from "@/components/About";
 import BookingForm from "@/components/BookingForm";
@@ -14,11 +13,19 @@ export default function Home() {
     <>
       <RevealInit />
       <Nav />
-      <Hero />
-      <Portfolio />
-      <About />
-      <BookingForm />
-      <Footer />
+      <ScrollExpandMedia
+        mediaType="image"
+        mediaSrc="/images/portfolio/jimwel-jessa.jpg"
+        bgImageSrc="/images/portfolio/keizsha-orly.jpg"
+        title="J Creatives"
+        date="Est. 2020"
+        scrollToExpand="Photography · Philippines"
+      >
+        <Portfolio />
+        <About />
+        <BookingForm />
+        <Footer />
+      </ScrollExpandMedia>
     </>
   );
 }
