@@ -4,6 +4,15 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+function esc(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 export async function POST(req: NextRequest) {
   const { name, email, eventType, eventDate, message } = await req.json();
 
@@ -28,11 +37,11 @@ export async function POST(req: NextRequest) {
             New Booking Inquiry
           </h2>
           <table style="width: 100%; border-collapse: collapse; margin-top: 16px;">
-            <tr><td style="padding: 8px 0; font-weight: 600; width: 120px;">Name</td><td>${name}</td></tr>
-            <tr><td style="padding: 8px 0; font-weight: 600;">Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
-            <tr><td style="padding: 8px 0; font-weight: 600;">Event Type</td><td>${eventType}</td></tr>
-            <tr><td style="padding: 8px 0; font-weight: 600;">Event Date</td><td>${eventDate}</td></tr>
-            <tr><td style="padding: 8px 0; font-weight: 600; vertical-align: top;">Message</td><td>${message || "—"}</td></tr>
+            <tr><td style="padding: 8px 0; font-weight: 600; width: 120px;">Name</td><td>${esc(name)}</td></tr>
+            <tr><td style="padding: 8px 0; font-weight: 600;">Email</td><td><a href="mailto:${encodeURIComponent(email)}">${esc(email)}</a></td></tr>
+            <tr><td style="padding: 8px 0; font-weight: 600;">Event Type</td><td>${esc(eventType)}</td></tr>
+            <tr><td style="padding: 8px 0; font-weight: 600;">Event Date</td><td>${esc(eventDate)}</td></tr>
+            <tr><td style="padding: 8px 0; font-weight: 600; vertical-align: top;">Message</td><td>${esc(message || "—")}</td></tr>
           </table>
         </div>
       `,
