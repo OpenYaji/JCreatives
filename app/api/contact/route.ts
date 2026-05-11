@@ -1,8 +1,5 @@
 // app/api/contact/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 function esc(str: string): string {
   return str
@@ -25,7 +22,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid email address." }, { status: 400 });
   }
 
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    // No key configured — log locally and return success so the form UX works
+    console.log("[contact] RESEND_API_KEY not set. Inquiry details:", { name, email, eventType, eventDate, message });
+    return NextResponse.json({ success: true });
+  }
+
   try {
+    const { Resend } = await import("resend");
+    const resend = new Resend(apiKey);
+
     await resend.emails.send({
       from: "J Creatives Inquiry <onboarding@resend.dev>",
       to: process.env.CONTACT_EMAIL!,
